@@ -37,7 +37,7 @@ func GetHelp(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	embed := &discordgo.MessageEmbed{
 		Title:       "Help",
 		Description: "Here are the commands you can use with this bot:",
-		Color:       0x00ff00, // Green color
+		Color:       0x00ff00,
 		Fields:      fields,
 	}
 

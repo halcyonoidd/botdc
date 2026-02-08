@@ -25,10 +25,10 @@ func main() {
 	dg.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
 		switch i.ApplicationCommandData().Name {
 		case "ping":
-			runs.RunPing(s, i) // Memanggil fungsi dari commands/runs/main.go
+			runs.RunPing(s, i) 
 		case "help":
-			runs.RunHelp(s, i) // Memanggil fungsi dari commands/runs/main.go
-		// case "jtc":           // Jika Anda ingin mengaktifkan JTC juga
+			runs.RunHelp(s, i) 
+		// case "jtc":           
 		// 	runs.RunJTC(s, i)
 		}
 	})
@@ -38,7 +38,8 @@ func main() {
 	}
 	defer dg.Close()
 
-	RegisterCommands(dg)
+	GuildID := "1467824668680392716"
+	RegisterCommands(dg, GuildID)
 
 	fmt.Println("Bot is now running. Press CTRL-C to exit.")
 	select {}
@@ -47,7 +48,7 @@ func main() {
 
 
 
-func RegisterCommands(s *discordgo.Session) {
+func RegisterCommands(s *discordgo.Session, guildID string) {
 	commands := []*discordgo.ApplicationCommand{
 		{
 			Name:        "ping",
@@ -57,7 +58,7 @@ func RegisterCommands(s *discordgo.Session) {
 			Name:        "help",
 			Description: "Get help with commands.",
 		},
-		{ // Jangan lupa daftarkan command jtc jika ingin dipakai
+		{
 			Name:        "jtc",
 			Description: "Join to create channel command",
 		},
@@ -66,7 +67,7 @@ func RegisterCommands(s *discordgo.Session) {
 	appID := s.State.User.ID
 
 	for _, cmd := range commands {
-		if _, err := s.ApplicationCommandCreate(appID, "", cmd); err != nil {
+		if _, err := s.ApplicationCommandCreate(appID, guildID, cmd); err != nil {
 			fmt.Println("Cannot create command:", cmd.Name, err)
 		} else {
 			fmt.Println("Command created:", cmd.Name)
