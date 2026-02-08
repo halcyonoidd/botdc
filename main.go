@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+
 	"github.com/bwmarrin/discordgo"
 	"github.com/joho/godotenv"
 )
