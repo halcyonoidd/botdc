@@ -28,3 +28,29 @@ func main() {
 	fmt.Println("Bot is now running. Press CTRL-C to exit.")
 	select {}
 }
+
+
+
+
+func RegisterCommands(s *discordgo.Session) {
+	commands := []*discordgo.ApplicationCommand{
+		{
+			Name:        "ping",
+			Description: "Replies with a ping!",
+		},
+		{
+			Name:        "help",
+			Description: "Get help with commands.",
+		},
+	}
+	
+	appID := s.State.User.ID // This is your application's ID
+
+	// Loop through and register each command
+	for _, cmd := range commands {
+		// Register the command globally (empty string for GuildID means global)
+		if _, err := s.ApplicationCommandCreate(appID, "", cmd); err != nil {
+			fmt.Println("Cannot create command:", cmd.Name, err)
+		}
+	}
+}
